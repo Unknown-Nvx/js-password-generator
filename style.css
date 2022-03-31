@@ -1,0 +1,23 @@
+.container {
+  max-width: 576px !important;
+}
+
+form {
+  background-color: #eee;
+  padding: 32px 64px;
+  border-radius: 16px;
+}
+
+input[type="checkbox"],
+#btn {
+  border-radius: 32px !important;
+}
+
+#btn:hover{
+  background-color: transparent;
+  color: #0d6efd;
+}
+
+.mb-3 {
+  margin: auto;
+}

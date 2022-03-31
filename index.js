@@ -1,39 +1,55 @@
-const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const numbers = '0123456789';
 const specialChars = '@#$?:!%*&/,.;[]{}()<>=_~';
 
 const password = {
     value: "",
     length: 16,
+    lowercase: true,
+    uppercase: true,
     numbers: true,
-    specialChars: true
+    specialChars: false
 };
 
-const randomChar = Math.floor(Math.random() * chars.length);
-password.value += chars.charAt(randomChar); // Always start the password with a letter.
+for(let i = 0; i <= password.length - 1; i++){  // "password.length -1" avoid having one more character than the length.
 
-for(let i = 2; i <= password.length; i++){ // $i is set to 2 because the loop starts at 0 and one char is already added just above.
+    while(password.value.length === i){ // 
 
-    const percent = Math.floor(Math.random() * 100);
+        const chance = Math.floor(Math.random() * 100);
     
-    const randomChar = Math.floor(Math.random() * chars.length);
-    const randomNumber = Math.floor(Math.random() * numbers.length);
-    const randomSpecialChars = Math.floor(Math.random() * specialChars.length);
+        const randomLowerChar = Math.floor(Math.random() * lowerChars.length);
+        const randomUpperChar = Math.floor(Math.random() * upperChars.length);
+        const randomNumber = Math.floor(Math.random() * numbers.length);
+        const randomSpecialChars = Math.floor(Math.random() * specialChars.length);
+        
+        console.log("chance: "+ chance);
+        console.log("----------------------------------");
+        console.log(`[${i}] Random LowerChar: ${randomLowerChar}`);
+        console.log(`[${i}] Random UpperChar: ${randomUpperChar}`);
+        console.log(`[${i}] Random Number: ${randomNumber}`);
+        console.log(`[${i}] Random SpecialChar: ${randomSpecialChars}`);
+        console.log("----------------------------------");
+        
+        switch(true){
 
-    switch(true){
-
-        case password.numbers && percent <= 40:
-            password.value += numbers.charAt(randomNumber);
-            break;
-
-        case password.specialChars && percent > 40 && percent < 60:
-            password.value += specialChars.charAt(randomSpecialChars);
-            break;
-
-        default:
-            password.value += chars.charAt(randomChar);
-            break;
+            case password.uppercase && chance <= 30:
+                password.value += upperChars[randomUpperChar];
+                break;
+        
+            case password.lowercase && chance > 30 && chance <= 60:
+                password.value += lowerChars[randomLowerChar];
+                break;
+        
+            case password.numbers && chance > 60 && chance <= 80:
+                password.value += numbers[randomNumber];
+                break;
+        
+            case password.specialChars && chance > 80:
+                password.value += specialChars[randomSpecialChars];
+                break;
+        }
     }
 }
 
-console.log(password.value);
+console.log("your generated password is: " + password.value);
